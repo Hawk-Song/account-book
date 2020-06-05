@@ -25,9 +25,10 @@ class MonthPicker extends React.Component {
         const yearRange = range(9, -4).map(number => number + year)
         return (
             <div className="dropdown month-picker-component">
-                <h4>Select Month</h4>
+                <div>Select Month</div>
                 <button 
                     className="btn btn-lg btn-secondary dropdown-toggle"
+                    style={{minWidth: "150px"}}
                     onClick={this.toggleDropdown}
                 >
                     {`${padLeft(month)}/${year}`}
