@@ -57,6 +57,26 @@ const items = [
           }
       }
 
+      changeView = () => {
+
+      }
+
+      changeDate = () => {
+
+      }
+
+      modifyItem = () => {
+
+      }
+
+      createItem = () => {
+
+      }
+
+      deleteItem = () => {
+
+      }
+
 
       render() {  
         const {items, currentDate, tabView} = this.state
@@ -84,7 +104,7 @@ const items = [
                      <MonthPicker
                         year={currentDate.year}
                         month={currentDate.month}
-                        onChange={() => {}}
+                        onChange={this.changeDate}
                      />
                    </div>
                    <div className="col">
@@ -96,12 +116,12 @@ const items = [
                  </div>
               </header>
               <div className="content-area py-3 px-3">
-                <ViewTab activeTab={tabView} onTabChange={()=>{}}/>
-                <CreateBtn btnName="Create a new item" onClick={() => {}} />
+                <ViewTab activeTab={tabView} onTabChange={this.changeView}/>
+                <CreateBtn btnName="Create a new item" onClick={this.createItem} />
                 <PriceList 
                   items={itemWithCategory}
-                  onModifyItem={() => {}}
-                  onDeleteItem={() => {}}
+                  onModifyItem={this.modifyItem}
+                  onDeleteItem={this.deleteItem}
                 />
               </div>
             </React.Fragment>
