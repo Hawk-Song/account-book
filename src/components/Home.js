@@ -3,10 +3,25 @@ import logo from '../logo.svg'
 
 import PriceList from '../components/PriceList'
 import ViewTab from '../components/ViewTab';
-import {LIST_VIEW, CHAT_VIEW, TYPE_INCOME, TYPE_OUTCOME} from "../utility"
+import {LIST_VIEW, CHAT_VIEW, TYPE_INCOME, TYPE_OUTCOME, parseToYearAndMonth} from "../utility"
 import MonthPicker from '../components/MonthPicker'
 import CreateBtn from '../components/CreateBtn'
 import TotalPrice from '../components/TotalPrice'
+
+const categories = {
+    "1": {
+      "id": "1",
+      "name": "travel",
+      "type": "outcome",
+      "iconName": "ios-plane"
+    },
+    "2": {
+      "id": "2",
+      "name": "Financial management",
+      "type": "income",
+      "iconName": "logo-yen"
+    }
+}
 
 const items = [
     {
@@ -14,43 +29,43 @@ const items = [
       "title": "Travel to SF",
       "price": 200,
       "date": "2019-09-10",
-      "category": {
-        "id": "1",
-        "name": "travel",
-        "type": "outcome",
-        "iconName": "ios-plane"
-      }
+      "cid": 1
     },
     {
       "id": 2,
       "title": "Travel to SF",
       "price": 400,
       "date": "2019-09-10",
-      "category": {
-        "id": "1",
-        "name": "travel",
-        "type": "outcome",
-        "iconName": "ios-plane"
-      }
+      "cid": 1
     },
     {
       "id": 3,
       "title": "Earn Money",
       "price": 600,
       "date": "2019-09-10",
-      "category": {
-        "id": "1",
-        "name": "travel",
-        "type": "income",
-        "iconName": "ios-yen"
-      }
+      "cid": 2
     }
   ]
 
   class Home extends Component {
+      constructor(props) {
+          super(props)
+          this.state = {
+            items,
+            currentDate: parseToYearAndMonth(),
+            tabView: LIST_VIEW
+          }
+      }
+
+
       render() {  
+        const {items, currentDate, tabView} = this.state
+        const itemWithCategory = items.map(item => {
+          item.category = categories[item.cid]
+          return item
+        })
         let totalIncome = 0, totalOutCome = 0
-        items.forEach(item => {
+        itemWithCategory.forEach(item => {
           if (item.category.type === TYPE_OUTCOME) {
             totalOutCome += item.price
           } else {
@@ -67,8 +82,8 @@ const items = [
                  <div className="row">
                    <div className="col">
                      <MonthPicker
-                        year={2020}
-                        month={8}
+                        year={currentDate.year}
+                        month={currentDate.month}
                         onChange={() => {}}
                      />
                    </div>
@@ -81,10 +96,10 @@ const items = [
                  </div>
               </header>
               <div className="content-area py-3 px-3">
-                <ViewTab activeTab={LIST_VIEW} onTabChange={()=>{}}/>
+                <ViewTab activeTab={tabView} onTabChange={()=>{}}/>
                 <CreateBtn btnName="Create a new item" onClick={() => {}} />
                 <PriceList 
-                  items={items}
+                  items={itemWithCategory}
                   onModifyItem={() => {}}
                   onDeleteItem={() => {}}
                 />
