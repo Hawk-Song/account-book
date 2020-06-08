@@ -1,18 +1,26 @@
 import React from 'react';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PriceList from './components/PriceList'
-import ViewTab from './components/ViewTab';
-import {LIST_VIEW, CHAT_VIEW} from "./utility"
-import MonthPicker from './components/MonthPicker'
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import Home from './components/Home'
-
+import Create from './containers/Create'
 
 function App() {
   return (
-    <div className="App">
-       <Home />
-    </div>
+    <Router>
+      <div className="App">
+        <ul>
+          <Link to="/">Home</Link>
+          <Link to="/create">Create</Link>
+          <Link to="edit/10">Edit</Link>
+        </ul>
+        <div className="container pb-5">
+          <Route path="/" exact component={Home} />
+          <Route path="/create" component={Create} />
+          <Route path="/edit/:id" component={Create}/>
+        </div>
+      </div>
+    </Router>
   );
 }
 
