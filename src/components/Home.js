@@ -7,7 +7,7 @@ import {LIST_VIEW, CHAT_VIEW, TYPE_INCOME, TYPE_OUTCOME, parseToYearAndMonth, pa
 import MonthPicker from '../components/MonthPicker'
 import CreateBtn from '../components/CreateBtn'
 import TotalPrice from '../components/TotalPrice'
-
+import {Tabs, Tab} from '../components/Tabs'
 const categories = {
     "1": {
       "id": "1",
@@ -147,6 +147,10 @@ const items = [
                  </div>
               </header>
               <div className="content-area py-3 px-3">
+                <Tabs activeIndex={0} onTabChange={() =>{}}>
+                  <Tab>1st item</Tab>
+                  <Tab>2nd item</Tab>
+                </Tabs>
                 <ViewTab activeTab={tabView} onTabChange={this.changeView}/>
                 <CreateBtn btnName="Create a new item" onClick={this.createItem} />
                 {
