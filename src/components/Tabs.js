@@ -2,8 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 export class Tabs extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            activeIndex: props.activeIndex
+        }
+    }
+    tabChange = (event, index) => {
+        event.preventDefault()
+        this.setState({
+            activeIndex: index
+        })
+    }
+
     render() {
-        const {children, activeIndex} = this.props
+        const {children} = this.props
+        const {activeIndex} = this.state
         return (
             <ul className='nav nav-tabs nav-fill my-4'>
                 {
@@ -12,6 +26,7 @@ export class Tabs extends React.Component {
                         return (
                             <li className="nav-item">
                                 <a
+                                    onClick={(event) => {this.tabChange(event, index)}}
                                     className={activeClassName}
                                     href="#"
                                 >
