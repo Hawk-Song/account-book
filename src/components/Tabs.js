@@ -13,6 +13,7 @@ export class Tabs extends React.Component {
         this.setState({
             activeIndex: index
         })
+        this.props.onTabChange(index)
     }
 
     render() {

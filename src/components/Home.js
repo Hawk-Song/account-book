@@ -8,6 +8,7 @@ import MonthPicker from '../components/MonthPicker'
 import CreateBtn from '../components/CreateBtn'
 import TotalPrice from '../components/TotalPrice'
 import {Tabs, Tab} from '../components/Tabs'
+import Ionicon from 'react-ionicons'
 const categories = {
     "1": {
       "id": "1",
@@ -55,19 +56,21 @@ const items = [
     "cid": 1
   }
 
+  const tabsText = [ LIST_VIEW, CHAT_VIEW]
+
   class Home extends Component {
       constructor(props) {
           super(props)
           this.state = {
             items,
             currentDate: parseToYearAndMonth(),
-            tabView: LIST_VIEW
+            tabView: tabsText[0]
           }
       }
 
-      changeView = (view) => {
+      changeIndex = (index) => {
           this.setState({
-            tabView: view
+            tabView: tabsText[index]
           })
       }
 
@@ -147,11 +150,26 @@ const items = [
                  </div>
               </header>
               <div className="content-area py-3 px-3">
-                <Tabs activeIndex={0} onTabChange={() =>{}}>
-                  <Tab>1st item</Tab>
-                  <Tab>2nd item</Tab>
+                <Tabs activeIndex={0} onTabChange={this.changeIndex}>
+                  <Tab>
+                    <Ionicon
+                      className="rounded-circle mr-2"
+                      fontSize="25px"
+                      color={'#007bff'}
+                      icon='ios-paper'
+                    />
+                    List Mode
+                  </Tab>
+                  <Tab>
+                    <Ionicon
+                      className="rounded-circle mr-2"
+                      fontSize="25px"
+                      color={'#007bff'}
+                      icon='ios-pie'
+                    />
+                    Chart Mode
+                  </Tab>
                 </Tabs>
-                <ViewTab activeTab={tabView} onTabChange={this.changeView}/>
                 <CreateBtn btnName="Create a new item" onClick={this.createItem} />
                 {
                   tabView === LIST_VIEW && 
