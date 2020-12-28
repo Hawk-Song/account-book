@@ -4,7 +4,7 @@ const CreateBtn = ({btnName, onClick}) => {
     return (
         <button 
             className="btn btn-primary"
-            style={{width: "100vw"}}
+            style={{width: "100%"}}
             onClick={onClick}
         >
             {btnName}
