@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'props-types'
+import PropTypes from 'prop-types'
 import {isValidDate} from '../utility'
 
-class PriceFrom extends React.Component {
+class PriceForm extends React.Component {
     static propTypes = {
         onFormSubmit: PropTypes.func.isRequired,
         onCancelSubmit: PropTypes.func.isRequired,

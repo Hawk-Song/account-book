@@ -9,6 +9,7 @@ import CreateBtn from '../components/CreateBtn'
 import TotalPrice from '../components/TotalPrice'
 import {Tabs, Tab} from '../components/Tabs'
 import Ionicon from 'react-ionicons'
+import {AppContext} from '../App'
 const categories = {
     "1": {
       "id": "1",
@@ -127,65 +128,73 @@ const items = [
           }
         })
 
-          return (
-            <React.Fragment>
-              <header className="App-header">
-                 <div className="row mb-5">
-                  <img src={logo} className="App-logo" alt="logo"></img>
-                 </div>
-                 <div className="row">
-                   <div className="col">
-                     <MonthPicker
-                        year={currentDate.year}
-                        month={currentDate.month}
-                        onChange={this.changeDate}
-                     />
-                   </div>
-                   <div className="col">
-                     <TotalPrice
-                      income = {totalIncome}
-                      outcome = {totalOutCome}
-                     />
-                   </div>
-                 </div>
-              </header>
-              <div className="content-area py-3 px-3">
-                <Tabs activeIndex={0} onTabChange={this.changeIndex}>
-                  <Tab>
-                    <Ionicon
-                      className="rounded-circle mr-2"
-                      fontSize="25px"
-                      color={'#007bff'}
-                      icon='ios-paper'
+        return (
+          <AppContext.Consumer>
+            {({state}) => {
+              return (
+                <React.Fragment>
+            <header className="App-header">
+                <div className="row mb-5">
+                <img src={logo} className="App-logo" alt="logo"></img>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <MonthPicker
+                      year={currentDate.year}
+                      month={currentDate.month}
+                      onChange={this.changeDate}
                     />
-                    List Mode
-                  </Tab>
-                  <Tab>
-                    <Ionicon
-                      className="rounded-circle mr-2"
-                      fontSize="25px"
-                      color={'#007bff'}
-                      icon='ios-pie'
+                  </div>
+                  <div className="col">
+                    <TotalPrice
+                    income = {totalIncome}
+                    outcome = {totalOutCome}
                     />
-                    Chart Mode
-                  </Tab>
-                </Tabs>
-                <CreateBtn btnName="Create a new item" onClick={this.createItem} />
-                {
-                  tabView === LIST_VIEW && 
-                  <PriceList 
-                    items={itemWithCategory}
-                    onModifyItem={this.modifyItem}
-                    onDeleteItem={this.deleteItem}
+                  </div>
+                </div>
+            </header>
+            <div className="content-area py-3 px-3">
+              <Tabs activeIndex={0} onTabChange={this.changeIndex}>
+                <Tab>
+                  <Ionicon
+                    className="rounded-circle mr-2"
+                    fontSize="25px"
+                    color={'#007bff'}
+                    icon='ios-paper'
                   />
-                }
-                {
-                  tabView === CHAT_VIEW && 
-                  <h1>This is chat view</h1>
-                }
-              </div>
-            </React.Fragment>
-          )
+                  List Mode
+                </Tab>
+                <Tab>
+                  <Ionicon
+                    className="rounded-circle mr-2"
+                    fontSize="25px"
+                    color={'#007bff'}
+                    icon='ios-pie'
+                  />
+                  Chart Mode
+                </Tab>
+              </Tabs>
+              <CreateBtn btnName="Create a new item" onClick={this.createItem} />
+              {
+                tabView === LIST_VIEW && 
+                <PriceList 
+                  items={itemWithCategory}
+                  onModifyItem={this.modifyItem}
+                  onDeleteItem={this.deleteItem}
+                />
+              }
+              {
+                tabView === CHAT_VIEW && 
+                <h1>This is chat view</h1>
+              }
+            </div>
+          </React.Fragment>
+              )
+            }}
+          </AppContext.Consumer>
+
+
+        )
       }
   }
 
