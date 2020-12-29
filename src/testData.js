@@ -47,7 +47,7 @@ export const testCategories = [
     {
       "title": "buy stuff for kitten",
       "price": 100,
-      "date": "2018-08-15",
+      "date": "2020-08-15",
       "monthCategory": "2018-8",
       "id": "_kly1klf4g",
       "cid": "1",
@@ -56,7 +56,7 @@ export const testCategories = [
     {
       "title": "this is my salary",
       "price": 20000,
-      "date": "2018-08-18",
+      "date": "2020-08-18",
       "monthCategory": "2018-8",
       "id": "_bd16bjeen",
       "cid": "2",
@@ -65,7 +65,7 @@ export const testCategories = [
     {
       "title": "drinking with friends",
       "price": 300,
-      "date": "2018-08-20",
+      "date": "2020-08-20",
       "monthCategory": "2018-8",
       "id": "_jjfice21k",
       "cid": "3",
@@ -74,7 +74,7 @@ export const testCategories = [
     {
       "title": "Financial income",
       "price": 1000,
-      "date": "2018-08-11",
+      "date": "2020-08-11",
       "monthCategory": "2018-8",
       "id": "_1fg1wme63",
       "cid": "11",
@@ -83,7 +83,7 @@ export const testCategories = [
     {
       "title": "Financial income",
       "price": 300,
-      "date": "2018-11-15",
+      "date": "2020-11-15",
       "monthCategory": "2018-11",
       "id": "_qryggm5y8",
       "cid": "12",
@@ -92,7 +92,7 @@ export const testCategories = [
     {
       "title": "Treating anther people",
       "price": 300,
-      "date": "2018-11-15",
+      "date": "2020-11-15",
       "monthCategory": "2018-11",
       "id": "_qryggm511",
       "cid": "3",

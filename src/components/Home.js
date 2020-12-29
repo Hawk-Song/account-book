@@ -1,6 +1,6 @@
 import React, {Component } from 'react'
 import logo from '../logo.svg'
-
+import {withRouter} from 'react-router-dom'
 import PriceList from '../components/PriceList'
 import ViewTab from '../components/ViewTab';
 import {LIST_VIEW, CHAT_VIEW, TYPE_INCOME, TYPE_OUTCOME, parseToYearAndMonth, padLeft} from "../utility"
@@ -10,6 +10,7 @@ import TotalPrice from '../components/TotalPrice'
 import {Tabs, Tab} from '../components/Tabs'
 import Ionicon from 'react-ionicons'
 import {AppContext} from '../App'
+import withContext from '../WithContext'
 const categories = {
     "1": {
       "id": "1",
@@ -63,7 +64,6 @@ const items = [
       constructor(props) {
           super(props)
           this.state = {
-            items,
             currentDate: parseToYearAndMonth(),
             tabView: tabsText[0]
           }
@@ -81,40 +81,26 @@ const items = [
           })
       }
 
-      modifyItem = (modifiedItem) => {
-          const modifiedItems = this.state.items.map(item => {
-            if (item.id === modifiedItem.id) {
-              return { ...item, title: 'updated title' }
-            } else {
-              return item
-            }
-          })
-
-          this.setState({
-            items: modifiedItems
-          })
-          
+      modifyItem = (item) => {
+        this.props.history.push(`/edit/${item.id}`)
       }
 
       createItem = () => {
-        this.setState({
-          items: [newItem, ...this.state.items]
-        })
+        this.props.history.push('./create')
       }
 
-      deleteItem = (deletedItem) => {
-        const filteredItems = this.state.items.filter(item => item.id != deletedItem.id)
-        this.setState({
-          items: filteredItems
-        })
+      deleteItem = (item) => {
+        this.props.actions.deleteItem(item);
       }
 
 
       render() {  
-        const {items, currentDate, tabView} = this.state
-        const itemWithCategory = items.map(item => {
-          item.category = categories[item.cid]
-          return item
+        const {data} = this.props
+        const {items, categories} = data;
+        const {currentDate, tabView} = this.state
+        const itemWithCategory = Object.keys(items).map(id => {
+          items[id].category = categories[items[id].cid]
+          return items[id]
         }).filter(item => {
             return item.date.includes(`${currentDate.year}-${padLeft(currentDate.month)}`)
         })
@@ -129,10 +115,7 @@ const items = [
         })
 
         return (
-          <AppContext.Consumer>
-            {({state}) => {
-              return (
-                <React.Fragment>
+          <React.Fragment>
             <header className="App-header">
                 <div className="row mb-5">
                 <img src={logo} className="App-logo" alt="logo"></img>
@@ -189,13 +172,8 @@ const items = [
               }
             </div>
           </React.Fragment>
-              )
-            }}
-          </AppContext.Consumer>
-
-
         )
       }
   }
 
-  export default Home
+  export default withRouter(withContext(Home))
