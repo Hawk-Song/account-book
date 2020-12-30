@@ -32,6 +32,16 @@ class App extends React.Component {
         this.setState({
           items: {...this.state.items, [newId]: newItem}
         })
+      },
+      updateItem: (item, updatedCategoryId) => {
+        const modifiedItem = {
+          ...item,
+          cid: updatedCategoryId,
+          timestamp: new Date(item.date).getTime()
+        }
+        this.setState({
+          items: {...this.state.items, [modifiedItem.id]:modifiedItem}
+        })
       }
     }
   }
@@ -47,7 +57,7 @@ class App extends React.Component {
             <div className="container pb-5">
                 <Route path='/' exact component={Home} />
                 <Route path='/create' component={Create} />
-                <Route path='edit/:id' component={Create} />
+                <Route path='/edit/:id' component={Create} />
             </div>
           </div>
         </Router>

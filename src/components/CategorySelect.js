@@ -8,7 +8,7 @@ class CategorySelect extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedCategoryId: props.selectedCategory && props.selectedCategory.selectedCategoryId
+            selectedCategoryId: props.selectedCategory && props.selectedCategory.id
         }
     }
 
