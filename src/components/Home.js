@@ -64,9 +64,12 @@ const items = [
       constructor(props) {
           super(props)
           this.state = {
-            currentDate: parseToYearAndMonth(),
             tabView: tabsText[0]
           }
+      }
+
+      componentDidMount() {
+        this.props.actions.getInitalData()
       }
 
       changeIndex = (index) => {
@@ -96,13 +99,13 @@ const items = [
 
       render() {  
         const {data} = this.props
-        const {items, categories} = data;
-        const {currentDate, tabView} = this.state
+        const {items, categories, currentDate} = data
+        console.log("*******")
+        console.log(data)
+        const {tabView} = this.state
         const itemWithCategory = Object.keys(items).map(id => {
           items[id].category = categories[items[id].cid]
           return items[id]
-        }).filter(item => {
-            return item.date.includes(`${currentDate.year}-${padLeft(currentDate.month)}`)
         })
 
         let totalIncome = 0, totalOutCome = 0

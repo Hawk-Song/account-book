@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios'
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import Home from './components/Home'
 import Create from './containers/Create'
@@ -12,10 +13,23 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: flatternArr(testItems),
-      categories: flatternArr(testCategories)
+      items: {},
+      categories: {},
+      currentDate: parseToYearAndMonth()
     }
     this.actions = {
+      getInitalData: () => {
+        const {currentDate} = this.state
+        const getURLWithData = `/items?_monthCategory=${currentDate.year}-${currentDate.month}$_sort=timestamp&_order=desc`
+        const promiseArr = [axios.get('categories'), axios.get(getURLWithData)]
+        Promise.all(promiseArr).then(arr => {
+          const [categories, items] = arr
+          this.setState({
+            items: flatternArr(items.data),
+            categories: flatternArr(categories.data)
+          })
+        })
+      },
       deleteItem: (item) => {
         delete this.state.items[item.id]
         this.setState({
