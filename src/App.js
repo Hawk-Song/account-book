@@ -20,7 +20,7 @@ class App extends React.Component {
     this.actions = {
       getInitalData: () => {
         const {currentDate} = this.state
-        const getURLWithData = `/items?_monthCategory=${currentDate.year}-${currentDate.month}$_sort=timestamp&_order=desc`
+        const getURLWithData = `/items?monthCategory=${currentDate.year}-${currentDate.month}&_sort=timestamp&_order=desc`
         const promiseArr = [axios.get('categories'), axios.get(getURLWithData)]
         Promise.all(promiseArr).then(arr => {
           const [categories, items] = arr
@@ -30,10 +30,23 @@ class App extends React.Component {
           })
         })
       },
+
+      selectNewMonth: (year, month) => {
+        const getURLWithData = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`
+        axios.get(getURLWithData).then(items => {
+          this.setState({
+            items: flatternArr(items.data),
+            currentDate: {year, month}
+          })
+        })
+      },
+
       deleteItem: (item) => {
-        delete this.state.items[item.id]
-        this.setState({
-          items: this.state.items
+        axios.delete(`/items/${item.id}`).then(() => {
+          delete this.state.items[item.id]
+          this.setState({
+            items: this.state.items
+          })
         })
       },
 

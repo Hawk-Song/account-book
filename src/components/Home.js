@@ -79,9 +79,7 @@ const items = [
       }
 
       changeDate = (year, month) => {
-          this.setState({
-            currentDate: {year, month}
-          })
+          this.props.actions.selectNewMonth(year, month)
       }
 
       modifyItem = (item) => {
