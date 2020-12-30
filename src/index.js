@@ -4,12 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import axios from 'axios'
-
-axios.get('/items').then((response) => {
-  console.log(response)
-})
-
 ReactDOM.render(
   <React.StrictMode>
     <App />

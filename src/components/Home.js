@@ -11,6 +11,7 @@ import {Tabs, Tab} from '../components/Tabs'
 import Ionicon from 'react-ionicons'
 import {AppContext} from '../App'
 import withContext from '../WithContext'
+import Loader from '../components/Loader'
 const categories = {
     "1": {
       "id": "1",
@@ -97,9 +98,7 @@ const items = [
 
       render() {  
         const {data} = this.props
-        const {items, categories, currentDate} = data
-        console.log("*******")
-        console.log(data)
+        const {items, categories, currentDate, isLoading} = data
         const {tabView} = this.state
         const itemWithCategory = Object.keys(items).map(id => {
           items[id].category = categories[items[id].cid]
@@ -138,38 +137,45 @@ const items = [
                 </div>
             </header>
             <div className="content-area py-3 px-3">
-              <Tabs activeIndex={0} onTabChange={this.changeIndex}>
-                <Tab>
-                  <Ionicon
-                    className="rounded-circle mr-2"
-                    fontSize="25px"
-                    color={'#007bff'}
-                    icon='ios-paper'
-                  />
-                  List Mode
-                </Tab>
-                <Tab>
-                  <Ionicon
-                    className="rounded-circle mr-2"
-                    fontSize="25px"
-                    color={'#007bff'}
-                    icon='ios-pie'
-                  />
-                  Chart Mode
-                </Tab>
-              </Tabs>
-              <CreateBtn btnName="Create a new item" onClick={this.createItem} />
-              {
-                tabView === LIST_VIEW && 
-                <PriceList 
-                  items={itemWithCategory}
-                  onModifyItem={this.modifyItem}
-                  onDeleteItem={this.deleteItem}
-                />
+              { isLoading && 
+                <Loader />
               }
-              {
-                tabView === CHAT_VIEW && 
-                <h1>This is chat view</h1>
+              {!isLoading &&
+                <React.Fragment>
+                  <Tabs activeIndex={0} onTabChange={this.changeIndex}>
+                    <Tab>
+                      <Ionicon
+                        className="rounded-circle mr-2"
+                        fontSize="25px"
+                        color={'#007bff'}
+                        icon='ios-paper'
+                      />
+                      List Mode
+                    </Tab>
+                    <Tab>
+                      <Ionicon
+                        className="rounded-circle mr-2"
+                        fontSize="25px"
+                        color={'#007bff'}
+                        icon='ios-pie'
+                      />
+                      Chart Mode
+                    </Tab>
+                  </Tabs>
+                  <CreateBtn btnName="Create a new item" onClick={this.createItem} />
+                  {
+                    tabView === LIST_VIEW && 
+                    <PriceList 
+                      items={itemWithCategory}
+                      onModifyItem={this.modifyItem}
+                      onDeleteItem={this.deleteItem}
+                    />
+                  }
+                  {
+                    tabView === CHAT_VIEW && 
+                    <h1>This is chat view</h1>
+                  }
+                </React.Fragment>
               }
             </div>
           </React.Fragment>
